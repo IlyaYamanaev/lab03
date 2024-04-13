@@ -4,11 +4,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.IO;
 
-
-// буфер для входящих данных
-
 bool clientStopped = false;
-
 while (!clientStopped)
 {
     using TcpClient client = new TcpClient();
@@ -26,8 +22,6 @@ while (!clientStopped)
     var filenameInClientData = "";
     var newFilenameForServer = "";
     var byIDorNAME = 0;
-
-
 
     if (action == "1" || action == "3")
     {
@@ -53,7 +47,6 @@ while (!clientStopped)
         newFilenameForServer = Console.ReadLine();
         if (newFilenameForServer == "") newFilenameForServer = filenameInClientData;
     }
-
 
     var requestToServer = "";
     switch (action)
@@ -111,14 +104,11 @@ while (!clientStopped)
             break;
         case 202:
             Console.Write("Response says that file is saved!");
-
             byte[] fileBytes = File.ReadAllBytes(filenameInClientData);
             byte[] f1leSizeBytes = BitConverter.GetBytes(fileBytes.Length);
             stream.Write(f1leSizeBytes, 0, f1leSizeBytes.Length);
             stream.Write(fileBytes, 0, fileBytes.Length);
-
             Console.WriteLine($"ID = {arrRespFromServer[1]}");
-
             break;
         case 402:
             Console.Write("Response says that file is NOT saved!");
